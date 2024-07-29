@@ -1,5 +1,18 @@
 # TutorialKit Starter
 
+## Deployment
+WebContainers require that your page, even in development, is served with these two headers:
+
+
+```
+Cross-Origin-Embedder-Policy: require-corp
+Cross-Origin-Opener-Policy: same-origin
+```
+
+https://webcontainers.io/guides/configuring-headers
+
+## Tutorial Kit
+
 👋 Welcome to TutorialKit!
 
 This README includes everything you need to start writing your tutorial content quickly.
