@@ -1,38 +1,37 @@
 ---
 type: lesson
-title: Welcome to TutorialKit
-focus: /counter.js
+title: Welcome to AstroPatterns
+terminal:
+  panels: "output"
+  allowCommands: ["astro"]
 ---
 
-# Welcome to TutorialKit
+# Welcome to AstroPatterns
 
-Hey there, and welcome to TutorialKit 👋!
+Welcome to AstroPatterns!
 
-To kick things off, we have prepared a small demo lesson for you, where we'll dive into the concept of event handling in JavaScript. Our task is to resuscitate a lifeless counter app by introducing the crucial element of interactivity: **event listeners**.
+This course is exercise-centric. 
+I describe a problem and how to fix it. 
+Then, you can practice on a real application.
 
-Let's look at the preview on the right for a moment and try to click on the button that says `counter is 0`. We'll notice that it doesn't work.
+If you are not in the mood for practice, 
+you can also jump to the solution directly.
 
-In the code for `counter.js`, which you can find on the right, we have a `setupCounter` function responsible for initializing our counter app. However, a crucial component is missing: an event listener for the button.
+You don't need to install anything on your computer.
+AstroPatterns relies on [WebContainers](https://webcontainers.io/) via the [TutorialKit framework](https://tutorialkit.dev/), 
+a wonderful piece of technology that lets us run fullstack applications directly in your browser.
 
-Event listeners are essential in web development as they enable our applications to respond to user actions. In this case, we need to listen for clicks on the button to increment the counter.
+Take a few minutes to explore the interface.
 
-To address this, we'll call the `addEventListener` to attach a `click` event listener to the button element. When a click is detected, we'll execute a callback function that increments the counter and updates the `innerHTML` accordingly.
+You'll find:
+- a code editor with code samples demonstrating the problem we want to solve
+- a button to check the solution
+- a preview of a running Astro application
 
-```ts add={9}
-export function setupCounter(element) {
-  let counter = 0;
+The code is merged into a running Astro application, 
+and the result is what you see the preview section.
 
-  const setCounter = (count) => {
-    counter = count;
-    element.innerHTML = `count is ${counter}`;
-  };
+You can edit the code and see the changes happen in real-time!
 
-  element.addEventListener('click', () => setCounter(counter + 1));
-
-  setCounter(0);
-}
-```
-
-This gives you a sneak peak of the TutorialKit experience, demonstrating what it's capable of.
-
-Happy writing!
+Now that you are more familiar with the interface, 
+let's move to the first lesson : patterns to write the best possible one-page website.
