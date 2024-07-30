@@ -1,7 +1,7 @@
 ---
 type: lesson
 title: Goal for this pattern
-focus: "./pages/WelcomeSection.astro"
+focus: "./src/pages/WelcomeSection.astro"
 ---
 
 https://github.com/lbke/astropatterns_svelte/tree/main/content/tutorial/05-astro/01-starters/01-render-html/app-a
