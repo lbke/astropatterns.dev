@@ -10,26 +10,27 @@ slug: server-endpoints-file-streaming
 
 <link rel="alternate" href="https://nextpatterns.dev/p/gems/route-handlers-file-streaming" />
 
-# Streaming files in Astro
-
-## Basic file serving with the public folder
+# Streaming a file in Astro
 
 It's very common to allow the users of a website to download static files.
 
-Images are the most common type of static files, your website probably has a logo or a picture somewhere on the homepage. You may also share your CV in PDF format, your startup pitch deck, the recipe for the best lasagna...
+Images are the most common type of static files, 
+your website probably has a logo or a picture somewhere on the homepage. You may also share your CV in PDF format, your startup pitch deck, the recipe for the best lasagna...
 
 The `/public` folder of Astro apps allows for the sharing of static files. 
 But as the name implies, files in this folder are available to anyone.
 
-**How can we handle private or bigger files?**
+The `/public` folder is not suitable for private files and other complex situations.
+
+**How can we handle private files efficiently?**
 
 ## Advanced file streaming use cases
 
-This pattern covers the following advanced use cases:
+This pattern covers the following use cases:
 
-- Private files: You want to check some permissions before serving "extremely_confidential_report.docx".
-- Personalized files: A generic url "/user/profile-picture" may serve a different image depending on the currently logged-in user.
-- Generated files: The State of JavaScript survey backoffice app generates CSV exports of the current responses. This means that we generate the file on the fly when we receive an export request.
+- **Private files:** You want to check some permissions before serving "extremely_confidential_report.docx".
+- **Personalized files:** A generic url "/user/profile-picture" may serve a different image depending on the currently logged-in user.
+- **Generated files:** The State of JavaScript survey backoffice app generates CSV exports of the current responses. This means that we generate the file on the fly when we receive an export request.
 
 We can't use the `/public` folder for that. We have to craft a more elaborate API endpoint to serve the files.
 In Astro, we call API endpoints ["Server Endpoints"](https://docs.astro.build/en/guides/endpoints/#server-endpoints-api-routes) or "API Routes". 
@@ -45,11 +46,30 @@ import SkipPractice from "@/components/SkipPractice.mdx"
 
 <SkipPractice />
 
-- Read the documentation for [Node.js `filehandle.readableWebStream`](https://nodejs.org/docs/v20.16.0/api/fs.html#filehandlereadablewebstreamoptions)
+- Read the documentation for Node.js [`filehandle.readableWebStream`](https://nodejs.org/docs/v20.16.0/api/fs.html#filehandlereadablewebstreamoptions)
 - Use this function to transform the file stream into a webstream. 
 **You will need the "bytes" option.**
 - The image should appear on the website.
 - You are done! 🎉
+
+
+## Performance impact
+
+It's commonplace to read the file entirely in a variable, instead of streaming it.
+
+```ts
+import fs from 'node:fs/promises';
+// if the file weighs 6 gygabytes,
+// your RAM consumption will increase by 6GB!!
+    const data = await fs.readFile(filePath, 'utf8');
+```
+
+With streaming, the file is read and sent by chunks.
+The charts below illustrate the memory consumption of both approaches,
+for a big zip archive.
+
+![Memory impact of streaming vs copying in memory](./ram-impact.png)
+
 
 ## What about closing the file?
 

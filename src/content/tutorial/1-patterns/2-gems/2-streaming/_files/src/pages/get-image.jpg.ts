@@ -3,7 +3,7 @@ import fs from "fs/promises"
 import path from "path"
 
 /**
- * You can add some advanced authorization logic here!
+ * You can add some advanced authorization logic here.
  */
 export async function isAllowed(request: Request) {
     return true
@@ -21,9 +21,13 @@ export async function GET(request: Request) {
     console.log("Opening file", filePath)
     const stats = await fs.stat(filePath);
     const fileHandle = await fs.open(filePath)
-    const stream = fileHandle.readableWebStream(
-        { type: "bytes" }
-    )
+    //  ***
+    // 🔨 PRACTICE HERE: 
+    //    Replace this line with a call to "fileHandle.readableWebStream(...)"
+    //    and be careful with the options
+    //    (click the "solve" button above to skip the practice)
+    // ***
+    const stream = null
     // Optionnaly: use "waitUntil" function from your hosting provider
     // to close the file after the stream has been consumed
 

@@ -2,19 +2,15 @@
 import fs from "fs/promises"
 import path from "path"
 
-// Will not be needed anymore in Next 15
-// but in Next 14 this prevents the GET endpoint
-// from being statically rendered
-export const dynamic = 'force-dynamic'
-
 /**
- * You can add some advanced authorization logic here!
+ * You can add some advanced authorization logic here.
  */
 export async function isAllowed(request: Request) {
     return true
 }
 
 export async function GET(request: Request) {
+    console.log("Getting image from endpoint")
     if (!(await isAllowed(request))) {
         return new Response(null, { status: 403 })
     }
@@ -28,7 +24,10 @@ export async function GET(request: Request) {
     const stream = fileHandle.readableWebStream(
         { type: "bytes" }
     )
-    // At the time of writing (07/2024) there is a tiny issue with typings
+    // Optionnaly: use "waitUntil" function from your hosting provider
+    // to close the file after the stream has been consumed
+
+    // At the time of writing (09/2024) there is a tiny issue with typings
     // @ts-ignore see https://github.com/nodejs/node/issues/54041#issuecomment-2260420439
     return new Response(stream, {
         status: 200,
@@ -42,8 +41,4 @@ export async function GET(request: Request) {
         })
 
     })
-    // Next 15 introduces "next/after" to properly close the file
-    //  @see https://nextjs.org/blog/next-15-rc#executing-code-after-a-response-with-nextafter-experimental
-    // This Stackblitz demo currently uses v14 so this code do not work yet (09/2024)
-    // after(() => { fileHandle.close() })
 }
