@@ -397,9 +397,7 @@
 
 
 .markdown-content {
-    margin-left: auto;
-    margin-right: auto;
-    @apply mx-auto max-w-3xl xl:max-w-4xl;
+    @apply lg:mx-auto lg:max-w-3xl xl:max-w-4xl;
 
     img {
         border-radius: 12px;
@@ -408,7 +406,7 @@
     }
 
     h1 {
-        @apply text-6xl mb-12;
+        @apply text-4xl md:text-6xl mb-12;
     }
 
     h2 {
