@@ -397,6 +397,10 @@
 
 
 .markdown-content {
+    margin-left: auto;
+    margin-right: auto;
+    @apply mx-auto max-w-3xl xl:max-w-4xl;
+
     img {
         border-radius: 12px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

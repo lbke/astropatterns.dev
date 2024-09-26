@@ -61,12 +61,12 @@ It's commonplace to read the file entirely in a variable, instead of streaming i
 import fs from 'node:fs/promises';
 // if the file weighs 6 gygabytes,
 // your RAM consumption will increase by 6GB!!
-    const data = await fs.readFile(filePath, 'utf8');
+const data = await fs.readFile(filePath, 'utf8');
 ```
 
 With streaming, the file is read and sent by chunks.
-The charts below illustrate the memory consumption of both approaches,
-for a big zip archive.
+The chart below illustrates the memory consumption of both approaches,
+for a big zip archive. Streaming is much more efficient.
 
 ![Memory impact of streaming vs copying in memory](./ram-impact.png)
 
@@ -74,7 +74,7 @@ for a big zip archive.
 ## What about closing the file?
 
 You'll notice that since we use a `return` keyword
-to send the response,
+to send the HTTP response,
 we never have a chance to properly close the file.
 
 We have 2 options here:
@@ -85,7 +85,7 @@ Vercel, Cloudflare and Netlify have worked on a `waitUntil` feature to achieve t
 
 :::info
 It seems weird that it's so difficult to close a file after sending an HTTP response, right?
-This is because Astro, similarly to Next.js, support serverless deployments.
+This is because Astro, similarly to Next.js, supports serverless deployments.
 And in the serverless paradigm, 
 sending an HTTP response may end the execution of the function.
 :::
@@ -101,21 +101,17 @@ using a custom function. Special thanks to [Karl Horky](https://github.com/karlh
 
 [Node.js GitHub issue related to using readableWebStream in Astro](https://github.com/nodejs/node/issues/54041)
 
-[How to stream files from Astro Server Endpoints - ericburel.tech](https://www.ericburel.tech/blog/nextjs-stream-files)
-
-[French version of this article - formationnextjs.fr](https://www.formationnextjs.fr/ressources/route-handlers-et-fichiers)
-
 [Next.js version of this pattern - nextpatterns.dev](https://nextpatterns.dev/p/gems/route-handlers-file-streaming)
 
-[Astro official doc about streaming in Server Endpoints](https://nextjs.org/docs/app/building-your-application/routing/route-handlers#streaming)
+[French version of the Next.js version of this pattern - formationnextjs.fr](https://www.formationnextjs.fr/ressources/route-handlers-et-fichiers)
 
-[next/after announcement](https://nextjs.org/blog/next-15-rc#executing-code-after-a-response-with-nextafter-experimental)
+[next/after announcement - Next.js blog](https://nextjs.org/blog/next-15-rc#executing-code-after-a-response-with-nextafter-experimental)
 
-[Vercel waitUntil](https://vercel.com/changelog/waituntil-is-now-available-for-vercel-functions)
+[Vercel waitUntil - Vercel changelog](https://vercel.com/changelog/waituntil-is-now-available-for-vercel-functions)
 
-[Cloudflare waitUntil](https://developers.cloudflare.com/workers/runtime-apis/context/)
+[Cloudflare waitUntil - Cloudflare documentation](https://developers.cloudflare.com/workers/runtime-apis/context/)
 
-[next/after](https://nextjs.org/docs/app/api-reference/functions/unstable_after), 
+[next/after - Next.js documentation](https://nextjs.org/docs/app/api-reference/functions/unstable_after), 
 which is an abstraction over `waitUntil`.
 
 import BetaBanner from "@/components/BetaBanner.mdx"

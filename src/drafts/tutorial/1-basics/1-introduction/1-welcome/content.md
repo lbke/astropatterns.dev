@@ -7,7 +7,7 @@ focus: pages/index.astro
 # Welcome to AstroPatterns
 
 This course is exercise-centric. 
-I describe a problem and how to fix it. 
+We describe a problem and how to fix it. 
 Then, you can practice on a real application.
 
 If you are not in the mood for practice, 
