@@ -1,15 +1,20 @@
 ---
 import "@/main.css";
-import { I18nContext } from "@/components/I18nContext";
 import { CurrentLocale } from "@/components/CurrentLocale";
+import { I18nContextProvider } from "../components/I18nContext";
 ---
 
 <div>
     <h1>React context in Astro</h1>
-    <I18nContext locale="French">
-        <CurrentLocale />
-    </I18nContext>
-    <p>It should display "French"</p>
-    <p>But it will display "English (default)" !</p>
-    <p>Astro doesn't take React context into account</p>
+    <div class="font-bold">
+        <I18nContextProvider locale="French">
+            <CurrentLocale client:load />
+        </I18nContextProvider>
+    </div>
+    <hr />
+    <div class="font-italic mt-4">
+        <p>The component above should display "French"</p>
+        <p>But it will display "English (default)" !</p>
+        <p>Astro doesn't take React context into account</p>
+    </div>
 </div>
