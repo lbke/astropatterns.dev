@@ -63,15 +63,36 @@ function MyConsumer() {
 }
 ```
 
-## Context in Astro: stuck to the default value
+## Islands in Astro
+
+Astro introduces a concept of "islands of interactivity".
+The plural matters : one page may contain multiple islands.
+
+This means that your React components are not automatically interconnected.
+
+In this example, the `Child` component
+won't be able to read a context set by `ParentContext`!
+
+At best, they can display the default context value,
+but it will never be initialized with the context provider value
+and won't receive any update.
 
 
-Astro selective hydration 
+```astro
+// index.astro
+import { ParentContext } from "./ParentContext"
+import { GrandChild } from "./GrandChild"
+---
+{/** These are separate islands! */}
+<ParentContext>
+    <Child />
+<ParentContext/>
+```
 
-etc. à creuser
+ILLUSSTRATION ISLANDS
 
 
-## 🔨 Practice: create a proper context with nanostores
+## 🔨 Practice: a proper context with nanostores
 
 import SkipPractice from "@/components/SkipPractice.mdx"
 
@@ -79,6 +100,8 @@ import SkipPractice from "@/components/SkipPractice.mdx"
 
 - XX
 - You are done! 🎉
+
+
 
 import Thanks from "@/components/Thanks.mdx"
 
@@ -89,6 +112,8 @@ import Thanks from "@/components/Thanks.mdx"
 [Passing Data Deeply with Context - React docs](https://react.dev/learn/passing-data-deeply-with-context)
 
 [Share state between Islands - Astro docs](https://docs.astro.build/en/recipes/sharing-state-islands/)
+
+[Make UI framework contexts available between islands](https://github.com/withastro/roadmap/discussions/742)
 
 import BetaBanner from "@/components/BetaBanner.mdx"
 
