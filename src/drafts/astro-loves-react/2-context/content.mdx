@@ -1,0 +1,95 @@
+---
+type: lesson
+title: Using React Context in Astro
+focus: /xx
+slug: react-context-in-astro
+# @see https://github.com/stackblitz/tutorialkit/issues/327
+# rss: true
+# publishedAt: 2024-09-10
+---
+
+# Using React Context in Astro
+
+Astro selective hydration creates an incompatibility with React Context.
+Let's figure how to work around this limitation.
+
+## Context in React
+
+*You may skip this section if you are already familiar with React Context.*
+
+In React, we pass data from a parent component to its children using "props".
+This may become tedious 
+if the component that renders the data is deeply nested in the component tree.
+We call that "props drilling".
+
+```tsx
+// 
+function Parent() {
+  const data = "parent data";
+  return <Child data={data} />;
+}
+function Child({ data }) {
+  return <GrandChild data={data} />;
+}
+function GrandChild({ data }) {
+  return <SuperGrandChild data={data} />;
+}
+// ...and so on
+```
+
+Context allows passing data from a parent component to its grand-children or below
+without having to pass the data through intermediate components.
+
+A Context Provider defines a context,
+and the `useContext` hook can consume this context.
+
+```tsx
+import { createContext, useState, useContext } from "react";
+
+const MyContext = createContext();
+
+function MyProvider({ children }) {
+  const [data, setData] = useState("provider data");
+  return (
+    <MyContext.Provider value={data}>
+  {children}
+  </MyContext.Provider>
+  )
+}
+
+function MyConsumer() {
+  const data = useContext(MyContext);
+  return <div>{data}</div>;
+}
+```
+
+## Context in Astro: stuck to the default value
+
+
+Astro selective hydration 
+
+etc. à creuser
+
+
+## 🔨 Practice: create a proper context with nanostores
+
+import SkipPractice from "@/components/SkipPractice.mdx"
+
+<SkipPractice />
+
+- XX
+- You are done! 🎉
+
+import Thanks from "@/components/Thanks.mdx"
+
+<Thanks />
+
+## References
+
+[Passing Data Deeply with Context - React docs](https://react.dev/learn/passing-data-deeply-with-context)
+
+[Share state between Islands - Astro docs](https://docs.astro.build/en/recipes/sharing-state-islands/)
+
+import BetaBanner from "@/components/BetaBanner.mdx"
+
+<BetaBanner />

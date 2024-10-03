@@ -1,0 +1,126 @@
+---
+type: lesson
+title: Using React Context in Astro
+focus: /xx
+slug: react-context-in-astro
+# @see https://github.com/stackblitz/tutorialkit/issues/327
+# rss: true
+# publishedAt: 2024-09-10
+---
+
+# Using React Context in Astro
+
+
+
+
+
+
+
+
+
+
+It's very common to allow the users of a website to download static files.
+
+Images are the most common type of static files, 
+your website probably has a logo or a picture somewhere on the homepage. You may also share your CV in PDF format, your startup pitch deck, the recipe for the best lasagna...
+
+The `/public` folder of Astro apps allows for the sharing of static files. 
+But as the name implies, files in this folder are available to anyone.
+
+The `/public` folder is not suitable for private files and other complex situations.
+
+**How can we handle private files efficiently?**
+
+## Advanced file streaming use cases
+
+This pattern covers the following use cases:
+
+- **Private files:** You want to check some permissions before serving "extremely_confidential_report.docx".
+- **Personalized files:** A generic url "/user/profile-picture" may serve a different image depending on the currently logged-in user.
+- **Generated files:** The State of JavaScript survey backoffice app generates CSV exports of the current responses. This means that we generate the file on the fly when we receive an export request.
+
+We can't use the `/public` folder for that. We have to craft a more elaborate API endpoint to serve the files.
+In Astro, we call API endpoints ["Server Endpoints"](https://docs.astro.build/en/guides/endpoints/#server-endpoints-api-routes) or "API Routes". 
+
+**Let's stream a file from a server endpoint.**
+
+## 🔨 Practice: how to stream a file from a server endpoint
+
+Take a look at the codebase. 
+It demonstrates a page displaying an image that should be streamed from a server endpoint.
+
+import SkipPractice from "@/components/SkipPractice.mdx"
+
+<SkipPractice />
+
+- Read the documentation for Node.js [`filehandle.readableWebStream`](https://nodejs.org/docs/v20.16.0/api/fs.html#filehandlereadablewebstreamoptions)
+- Use this function to transform the file stream into a webstream. 
+**You will need the "bytes" option.**
+- The image should appear on the website.
+- You are done! 🎉
+
+
+## Performance impact
+
+It's commonplace to read the file entirely in a variable, instead of streaming it.
+
+```ts
+import fs from 'node:fs/promises';
+// if the file weighs 6 gygabytes,
+// your RAM consumption will increase by 6GB!!
+const data = await fs.readFile(filePath, 'utf8');
+```
+
+With streaming, the file is read and sent by chunks.
+The chart below illustrates the memory consumption of both approaches,
+for a big zip archive. Streaming is much more efficient.
+
+![Memory impact of streaming vs copying in memory](./ram-impact.png)
+
+
+## What about closing the file?
+
+You'll notice that since we use a `return` keyword
+to send the HTTP response,
+we never have a chance to properly close the file.
+
+We have 2 options here:
+- Do not use a stream, instead read the file in memory and send it as a response.
+It's totally ok for small files unless you have a really huge traffic on your website.
+- Use features from your hosting provider that allows waiting for the stream to be closed before killing a serverless function.
+Vercel, Cloudflare and Netlify have worked on a `waitUntil` feature to achieve that.
+
+:::info
+It seems weird that it's so difficult to close a file after sending an HTTP response, right?
+This is because Astro, similarly to Next.js, supports serverless deployments.
+And in the serverless paradigm, 
+sending an HTTP response may end the execution of the function.
+:::
+
+import Thanks from "@/components/Thanks.mdx"
+
+<Thanks />
+
+## References
+
+I previously wrote articles about streaming files,
+using a custom function. Special thanks to [Karl Horky](https://github.com/karlhorky) for showing me a simpler approach.
+
+[Node.js GitHub issue related to using readableWebStream in Astro](https://github.com/nodejs/node/issues/54041)
+
+[Next.js version of this pattern - nextpatterns.dev](https://nextpatterns.dev/p/gems/route-handlers-file-streaming)
+
+[French version of the Next.js version of this pattern - formationnextjs.fr](https://www.formationnextjs.fr/ressources/route-handlers-et-fichiers)
+
+[next/after announcement - Next.js blog](https://nextjs.org/blog/next-15-rc#executing-code-after-a-response-with-nextafter-experimental)
+
+[Vercel waitUntil - Vercel changelog](https://vercel.com/changelog/waituntil-is-now-available-for-vercel-functions)
+
+[Cloudflare waitUntil - Cloudflare documentation](https://developers.cloudflare.com/workers/runtime-apis/context/)
+
+[next/after - Next.js documentation](https://nextjs.org/docs/app/api-reference/functions/unstable_after), 
+which is an abstraction over `waitUntil`.
+
+import BetaBanner from "@/components/BetaBanner.mdx"
+
+<BetaBanner />
