@@ -14,7 +14,9 @@ export function OptionalContent({ title, children }: {
         >
 
             <Disclosure >
-                <DisclosureButton className="group flex items-center justify-center gap-2 w-full">
+                <DisclosureButton className="group 
+                flex flex-col sm:flex-row items-center 
+                justify-center gap-2 w-full">
                     {title}
                     <div className="flex items-center font-bold">
                         <span>Click to toggle a short summary</span>
@@ -25,7 +27,8 @@ export function OptionalContent({ title, children }: {
                     transition
                     className="
                     origin-top transition duration-200 ease-out data-[closed]:-translate-y-6 data-[closed]:opacity-0
-                    mt-8" >
+                    mt-2" >
+                    <hr />
                     {children}
                 </DisclosurePanel>
 

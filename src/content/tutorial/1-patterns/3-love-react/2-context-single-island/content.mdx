@@ -17,7 +17,7 @@ import { OptionalContent} from "@/components/OptionalContent"
 
 <OptionalContent
 client:load
-title="Not familiar with Context in React?"
+title="Not familiar with context in React yet?"
 >
 
 ## Context in React: why we need them
@@ -140,8 +140,8 @@ import { GrandChild } from "./GrandChild"
 export function MyReactApp() {
     return (
         <ParentContext>
-    <Child />
-<ParentContext/>
+          <Child />
+        <ParentContext/>
     )
 ```
 
@@ -150,33 +150,22 @@ This architecture would be similar to how Next.js App Router works,
 with a single React instance instead of multiple islands.
 :::
 
-
-
-Using a React context in an Astro application is tricky.
-
-
-At best, you can display the context default value.
-You can't initialize this value when rendering the context provider,
-nor updating the context.
-
-ILLUSTRATION astro-island in HTML
-
-
-
-
-
-Astro selective hydration 
-
-etc. à creuser
-
-## 🔨 Practice: context with a single island
+## 🔨 Practice: React context with a single island
 
 import SkipPractice from "@/components/SkipPractice.mdx"
 
 <SkipPractice />
 
-- XX
+- Create a component `MyApp.tsx`
+- Move the `I18nContextProvider` and `CurrentLocale` components from `index.astro` to `MyApp.tsx`
+- Render `<MyApp />` in `index.astro`
 - You are done! 🎉
+
+With this approach, you shift away from Astro mental model,
+to build a React "Single Page Application" (SPA) with a more traditional architecture.
+
+Whether it's fine or not depends on your own application.
+We will learn other ways to handle React Context in Astro in incoming lessons.
 
 
 import Thanks from "@/components/Thanks.mdx"

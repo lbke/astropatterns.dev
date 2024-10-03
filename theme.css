@@ -421,4 +421,8 @@
     p>strong:only-child {
         @apply text-lg;
     }
+
+    figcaption.header {
+        @apply font-italic text-sm font-mono;
+    }
 }
