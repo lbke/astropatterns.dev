@@ -112,14 +112,17 @@ and won't receive any update.
 
 ```astro
 // index.astro
-import { ParentContext } from "./ParentContext"
-import { GrandChild } from "./GrandChild"
+import { MyContext } from "./ParentContext"
+import { Myconsumer } from "./Child"
 ---
 {/** These are separate islands! */}
-<ParentContext>
-    <Child />
+<ParentContext value={{foo:"bar"}}>
+    {/** Won't be able to access the data {foo: "bar"} at all */}
+    <MyConsumer />
 <ParentContext/>
 ```
+
+TODO: why are they not a single island ?
 
 ## The Australian architecture : a massive island
 

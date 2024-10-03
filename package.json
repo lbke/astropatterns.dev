@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@astrojs/vercel": "^7.8.1",
+    "@headlessui/react": "^2.1.9",
     "@tutorialkit/react": "^0.2.2",
     "@tutorialkit/theme": "^0.2.3",
     "mongodb": "^6.9.0",
