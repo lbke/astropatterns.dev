@@ -9,6 +9,7 @@
     --np-logo-dark-red: #101a3f;
     --np-logo-cyan: #42cde6;
     --np-light-mint: #c0ecf2;
+    --np-logo-red: #e03879ff;
 
     /* tutorial kit values */
     --tk-background-primary: theme('colors.gray.0');
@@ -406,7 +407,8 @@
     }
 
     h1 {
-        @apply text-4xl md:text-6xl mb-12;
+        @apply text-4xl md:text-6xl mb-12 md:mb-16 relative;
+        z-index: 1;
     }
 
     h2 {
@@ -425,4 +427,34 @@
     figcaption.header {
         @apply font-italic text-sm font-mono;
     }
+}
+
+.markdown-content {
+    /*::before {
+        content: "";
+        opacity: 0.8;
+        position: absolute;
+        z-index: 0;
+        left: -40px;
+        top: -32px;
+        width: 72px;
+        height: 72px;
+        background-image: url("/public/red-thingy-titles.svg");
+        background-repeat: none;
+        background-size: cover;
+    }*/
+
+    h1::after {
+        content: "";
+        z-index: 0;
+        position: absolute;
+        bottom: -24px;
+        left: 0px;
+        width: 66%;
+        height: 4px;
+        border-radius: 50%;
+        background: rgb(224, 56, 121);
+        background: linear-gradient(90deg, rgba(224, 56, 121, 0) 0%, rgba(224, 56, 121, 1) 50%, rgba(224, 56, 121, 0) 100%);
+    }
+
 }
