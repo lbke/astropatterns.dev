@@ -7,7 +7,7 @@ import { I18nContextProvider } from "../components/I18nContext";
 <div>
     <h1>React context in Astro</h1>
     <div class="font-bold">
-        <I18nContextProvider locale="French">
+        <I18nContextProvider client:load locale="French">
             <CurrentLocale client:load />
         </I18nContextProvider>
     </div>

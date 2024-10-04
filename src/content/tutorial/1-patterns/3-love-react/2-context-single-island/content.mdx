@@ -115,14 +115,23 @@ and won't receive any update.
 import { MyContext } from "./ParentContext"
 import { Myconsumer } from "./Child"
 ---
-{/** These are separate islands! */}
-<ParentContext value={{foo:"bar"}}>
+{/** These will be separate islands! */}
+<I18nContextProvider client:load locale="French">
     {/** Won't be able to access the data {foo: "bar"} at all */}
-    <MyConsumer />
-<ParentContext/>
+    <MyConsumer client:load />
+<I18nContextProvider/>
 ```
+If we observe the generated elements in the browser's DevTools,
+we notice that Astro created not one but two islands,
+and the React context is lost between them.
 
-TODO: why are they not a single island ?
+![Astro will generate 2 islands](./2-islands.png)
+
+:::info
+If you don't use the [`client:load` directive](https://docs.astro.build/fr/reference/directives-reference/#clientload),
+Astro won't even run these components JavaScript code in the browser (what we call "hydrating").
+:::
+
 
 ## The Australian architecture : a massive island
 
