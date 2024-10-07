@@ -1,3 +1,9 @@
+# Redaction best practices
+
+- Limit use of pronouns: "it", "they", be more precise: "the component Foobar" etc.
+- No "it's easy, just XX" nothing is easy in this world
+
+
 # TutorialKit Starter
 
 ## Deployment

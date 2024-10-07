@@ -1,16 +1,20 @@
 ---
 type: lesson
 title: Using React Context in Astro
-focus: /pages/index.astro
+focus: /src/pages/index.astro
 slug: react-context-in-astro
 # @see https://github.com/stackblitz/tutorialkit/issues/327
 # rss: true
 # publishedAt: 2024-09-10
 ---
 
+import PublishedAt from "@/components/PublishedAt.astro"
+
+<PublishedAt publishedAt="2024-10-10" />
+
 # Using React Context in Astro
 
-Astro optimizations creates an incompatibility with React Context.
+Astro optimizations create some incompatibilities with React Context.
 Let's figure how to work around this limitation.
 
 import { OptionalContent} from "@/components/OptionalContent"
@@ -101,11 +105,13 @@ Astro introduces a concept of "islands of interactivity".
 The plural matters : one page may contain multiple islands.
 
 This means that your React components are not automatically interconnected.
+A child component may not be able to comunicate with a parent context.
 
-In this example, the `Child` component
-won't be able to read a context set by `ParentContext`!
+In the interactive example and in the code snippet below, 
+the `CurrentLocale` component
+won't be able to read a context set by `I18nContextProvider`!
 
-At best, they can display the default context value,
+At best, `CurrentLocale` can display the default context value,
 but it will never be initialized with the context provider value
 and won't receive any update.
 
@@ -118,7 +124,7 @@ import { Myconsumer } from "./Child"
 {/** These will be separate islands! */}
 <I18nContextProvider client:load locale="French">
     {/** Won't be able to access the data {foo: "bar"} at all */}
-    <MyConsumer client:load />
+    <CurrentLocale client:load />
 <I18nContextProvider/>
 ```
 If we observe the generated elements in the browser's DevTools,
@@ -133,7 +139,7 @@ Astro won't even run these components JavaScript code in the browser (what we ca
 :::
 
 
-## The Australian architecture : a massive island
+## The Australian architecture : a massive island 🏝️
 
 If your Astro app is very interactive
 and uses React code everywhere,
@@ -155,8 +161,8 @@ export function MyReactApp() {
 ```
 
 :::info
-This architecture would be similar to how Next.js App Router works,
-with a single React instance instead of multiple islands.
+This architecture is similar to how Next.js App Router works,
+with a single React instance instead of multiple separate islands.
 :::
 
 ## 🔨 Practice: React context with a single island
@@ -167,10 +173,11 @@ import SkipPractice from "@/components/SkipPractice.mdx"
 
 - Create a component `MyApp.tsx`
 - Move the `I18nContextProvider` and `CurrentLocale` components from `index.astro` to `MyApp.tsx`
-- Render `<MyApp />` in `index.astro`
+- Remove the `client:load` directives from `I18nContextProvider` and `CurrentLocale`
+- Render `<MyApp client:load />` in `index.astro`
 - You are done! 🎉
 
-With this approach, you shift away from Astro mental model,
+With this approach, you shift away from Astro mental model
 to build a React "Single Page Application" (SPA) with a more traditional architecture.
 
 Whether it's fine or not depends on your own application.
@@ -188,6 +195,14 @@ import Thanks from "@/components/Thanks.mdx"
 [Share state between Islands - Astro docs](https://docs.astro.build/en/recipes/sharing-state-islands/)
 
 [Make UI framework contexts available between islands](https://github.com/withastro/roadmap/discussions/742)
+
+## Stay informed
+
+import { SubscribeForm } from "@/components/SubscribeForm"
+
+AstroPatterns is under active development, enter your email to be informed when new patterns are out.
+
+<SubscribeForm client:load />
 
 import BetaBanner from "@/components/BetaBanner.mdx"
 

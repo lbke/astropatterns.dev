@@ -1,0 +1,12 @@
+---
+import { formatDate } from "@/lib/dates";
+interface Props {
+    /** YYYY-MM-DD */
+    publishedAt: string;
+}
+const { publishedAt } = Astro.props;
+---
+
+<div class="font-italic text-sm">
+    {formatDate(publishedAt)}
+</div>

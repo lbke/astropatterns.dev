@@ -1,0 +1,16 @@
+---
+import "@/main.css";
+import { MyApp } from "@/components/MyApp";
+---
+
+<div>
+    <h1>React context in Astro</h1>
+    <div class="font-bold">
+        <MyApp client:load />
+    </div>
+    <hr />
+    <div class="font-italic mt-4">
+        <p>The component above should display "French"</p>
+        <p>It uses a single island of interactivity</p>
+    </div>
+</div>
