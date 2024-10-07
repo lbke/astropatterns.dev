@@ -5,12 +5,6 @@
 :root,
 :root[data-theme='light'] {
 
-    --np-logo-dark-blue: #101a3f;
-    --np-logo-dark-red: #101a3f;
-    --np-logo-cyan: #42cde6;
-    --np-light-mint: #c0ecf2;
-    --np-logo-red: #e03879ff;
-    --np-cream: rgb(250, 245, 236);
 
     /* tutorial kit values */
     --tk-background-primary: theme('colors.gray.0');
@@ -143,6 +137,14 @@
  * Hierarchy: Element Token -> (Element Token | Color Tokens) -> Primitives
  */
 :root {
+    /* Patterns colors */
+    --np-dark-red: #3f1010;
+    --np-dark-blue: #101a3f;
+    --np-cyan: #42cde6;
+    --np-light-mint: #c0ecf2;
+    --np-red: #e03879ff;
+    --np-cream: rgb(250, 245, 236);
+
     /* App */
     --tk-elements-app-backgroundColor: var(--tk-background-primary);
     --tk-elements-app-borderColor: var(--tk-border-primary);
@@ -397,43 +399,43 @@
     --tk-elements-callouts-success-codeBackgroundColor: var(--tk-background-secondary);
 }
 
-:root[data-theme='light'] {
-    main {
-        @apply bg-[var(--np-cream)];
-    }
+/** BENTO DESIGN */
 
-    nav {
-        @apply rounded-xl my-1 mx-2 shadow-sm;
-    }
+nav {
+    @apply rounded-xl my-1 mx-1 md:mx-2 shadow-sm;
+}
 
-    [data-id='main-panel'] {
-        @apply p-2 bg-[var(--np-cream)];
+body {
+    /*@apply bg-[var(--np-cream)] dark:bg-[var(--np-dark-red)];*/
+    @apply bg-[var(--np-cream)] dark:bg-black dark:bg-[url("/img/red_blip.webp")] bg-[url("/img/blue_blip.webp")] bg-no-repeat bg-center bg-auto;
+}
 
-        &>div {
-            @apply rounded-xl shadow-sm;
-        }
-    }
+[data-id='main-panel'] {
+    @apply p-1 md:p-2;
 
-    /** TODO find a way to add a gap to the flex element instead */
-    #editor-opened {
-        @apply p-2 bg-[var(--np-cream)];
-
-        &>div {
-            @apply rounded-xl shadow-sm;
-        }
-    }
-
-    #previews-opened {
-        @apply p-2 bg-[var(--np-cream)];
-
-        &>div {
-            @apply rounded-xl shadow-sm;
-        }
+    &>div {
+        @apply rounded-xl shadow-sm;
     }
 }
 
-:root[data-theme='dark'] {}
+/** TODO find a way to add a gap to the flex element instead */
+#editor-opened {
+    @apply p-1 md:p-2 bg-transparent;
 
+    &>div {
+        @apply rounded-xl shadow-sm;
+    }
+}
+
+#previews-opened {
+    @apply p-1 md:p-2 bg-transparent;
+
+    &>div {
+        @apply rounded-xl shadow-sm;
+    }
+}
+
+/* MARKDOWN TEXT */
 
 .markdown-content {
     @apply lg:mx-auto lg:max-w-3xl xl:max-w-4xl;
