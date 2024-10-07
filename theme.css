@@ -10,6 +10,7 @@
     --np-logo-cyan: #42cde6;
     --np-light-mint: #c0ecf2;
     --np-logo-red: #e03879ff;
+    --np-cream: rgb(250, 245, 236);
 
     /* tutorial kit values */
     --tk-background-primary: theme('colors.gray.0');
@@ -395,6 +396,43 @@
     --tk-elements-callouts-success-codeColor: var(--tk-text-primary);
     --tk-elements-callouts-success-codeBackgroundColor: var(--tk-background-secondary);
 }
+
+:root[data-theme='light'] {
+    main {
+        @apply bg-[var(--np-cream)];
+    }
+
+    nav {
+        @apply rounded-xl my-1 mx-2 shadow-sm;
+    }
+
+    [data-id='main-panel'] {
+        @apply p-2 bg-[var(--np-cream)];
+
+        &>div {
+            @apply rounded-xl shadow-sm;
+        }
+    }
+
+    /** TODO find a way to add a gap to the flex element instead */
+    #editor-opened {
+        @apply p-2 bg-[var(--np-cream)];
+
+        &>div {
+            @apply rounded-xl shadow-sm;
+        }
+    }
+
+    #previews-opened {
+        @apply p-2 bg-[var(--np-cream)];
+
+        &>div {
+            @apply rounded-xl shadow-sm;
+        }
+    }
+}
+
+:root[data-theme='dark'] {}
 
 
 .markdown-content {
